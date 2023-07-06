@@ -149,7 +149,14 @@
 $ git clone https://github.com/airellzulkarnain/online-library.git
 ```
 ### Running Instructions
-1. Go To bin directory.
+1. Build online-library:
+```bash
+# Get Depedencies
+$ go mod tidy
+# build go executable
+$ go build -o bin
+```
+2. Go To bin directory.
 Linux/Mac: 
 ```bash
 $ cd online-library/bin
@@ -158,7 +165,7 @@ Windows:
 ```bash
 $ cd online-library\\bin
 ```
-2. Run the online-library executable.
+3. Run the online-library executable.
 Linux/Mac:
 ```bash
 $ ./online-library
@@ -168,7 +175,8 @@ Windows:
 $ online-library.exe
 ```
 Now you get the API up and running on http://localhost:8080/
-3. Before you can access any operations, you must get jwt token through the `login/` endpoint:
+4. Before you can access any operations, you must get jwt token through the `login/` endpoint:
+   Note: Do not used hard coded account and unencrypted password for production use.
 ```bash
 curl -X POST -d '{"username": "zegen", "password": "zegen"}' http://localhost:8080/login
 ```
