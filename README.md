@@ -179,7 +179,7 @@ output:
 ### Operations
 **1. Create a book**
 ```bash
-curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -d '{
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer jwt-token" -d '{
   "title": "The Great Gatsby",
   "published_year": 1925,
   "isbn": 123456789011X
@@ -188,73 +188,84 @@ curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $TOKE
 
 **2. Get all books**
 ```bash
-curl -H "Authorization: Bearer $TOKEN" http://localhost:8080/api/books
+curl -H "Authorization: Bearer jwt-token" http://localhost:8080/api/books
 ```
 
 **3. Get a specific book**
 ```bash
-curl -H "Authorization: Bearer $TOKEN" http://localhost:8080/api/books/1
+curl -H "Authorization: Bearer jwt-token" http://localhost:8080/api/books/1
 ```
 
 **4. Update a book**
 ```bash
-curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -d '{
+curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer jwt-token" -d '{
   "title": "The Great Gatsby",
   "published_year": 1925,
   "isbn": "123456789012X"
 }' http://localhost:8080/api/books/1
 ```
 
-**5. Delete a book**
+**5. Create an author**
 ```bash
-curl -X DELETE -H "Authorization: Bearer $TOKEN" http://localhost:8080/api/books/1
-```
-
-**6. Create an author**
-```bash
-curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -d '{
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer jwt-token" -d '{
   "name": "F. Scott Fitzgerald",
   "country": "United States"
 }' http://localhost:8080/api/authors
 ```
 
-**7. Get all authors**
+**6. Get all authors**
 ```bash
-curl -H "Authorization: Bearer $TOKEN" http://localhost:8080/api/authors
+curl -H "Authorization: Bearer jwt-token" http://localhost:8080/api/authors
 ```
 
-**8. Get a specific author**
+**7. Get a specific author**
 ```bash
-curl -H "Authorization: Bearer $TOKEN" http://localhost:8080/api/authors/1
+curl -H "Authorization: Bearer jwt-token" http://localhost:8080/api/authors/1
 ```
 
-**9. Update an author**
+**8. Update an author**
 ```bash
-curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -d '{
+curl -X PUT -H "Content-Type: application/json" -H "Authorization: Bearer jwt-token" -d '{
   "name": "F. Scott Fitzgerald",
   "country": "United States"
 }' http://localhost:8080/api/authors/1
 ```
 
-**10. Delete an author**
+**9. Get all books for a specific author**
 ```bash
-curl -X DELETE -H "Authorization: Bearer $TOKEN" http://localhost:8080/api/authors/1
+curl -H "Authorization: Bearer jwt-token" http://localhost:8080/api/authors/1/books
 ```
 
-**11. Get all books for a specific author**
+**10. Get all authors specific books**
 ```bash
-curl -H "Authorization: Bearer $TOKEN" http://localhost:8080/api/authors/1/books
+curl -H "Authorization: Bearer jwt-token" http://localhost:8080/api/books/1/authors
+```
+**11. Link book to author**
+```bash
+curl -X POST -H "Authorization: Bearer jwt-token" http://localhost:8080/api/books/1/authors/1/
+```
+**12. Delete a book**
+```bash
+curl -X DELETE -H "Authorization: Bearer jwt-token" http://localhost:8080/api/books/1
 ```
 
-**12. Get all authors specific books**
+**13. Delete an author**
 ```bash
-curl -H "Authorization: Bearer $TOKEN" http://localhost:8080/api/books/1/authors
-```
-**13. Link book to author**
-```bash
-curl -X POST -H "Authorization: Bearer $TOKEN" http://localhost:8080/api/books/1/authors/1/
+curl -X DELETE -H "Authorization: Bearer jwt-token" http://localhost:8080/api/authors/1
 ```
 
-Make sure to replace `$TOKEN` with the actual JWT token value you get from login endpoint earlier.
+Make sure to replace `jwt-token` with the actual JWT token value you get from login endpoint earlier.
 
 ## Testing Procedures
+1. go back to online-library directory if you are inside bin directory
+```bash
+$ cd ..
+```
+2. Run the following command, just in case:
+```bash
+$ go mod tidy
+```
+3. Then run the online-library tests:
+```bash
+$ go test -v
+```

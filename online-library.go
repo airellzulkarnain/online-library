@@ -497,6 +497,7 @@ func main() {
 						PRIMARY KEY (book_id, author_id)
 					)`)
 
+	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
 
 	// Public routes

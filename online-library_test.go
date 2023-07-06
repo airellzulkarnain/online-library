@@ -21,6 +21,7 @@ func teardown() {
 }
 
 func setupRoutes() {
+	gin.SetMode(gin.ReleaseMode)
 	router.POST("/books", createBook)
 	router.GET("/books", getBooks)
 	router.GET("/books/:id", getBook)
@@ -31,6 +32,7 @@ func setupRoutes() {
 	router.GET("/authors/:id", getAuthor)
 	router.PUT("/authors/:id", updateAuthor)
 	router.DELETE("/authors/:id", deleteAuthor)
+	router.POST("/books/:book_id/authors/:author_id", linkBookToAuthor)
 }
 
 func TestCreateBook(t *testing.T) {
